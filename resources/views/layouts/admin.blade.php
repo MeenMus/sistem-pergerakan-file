@@ -91,23 +91,24 @@
       <a href="#" class="brand-link">
         <center><span class="brand-text font-weight-bold">File Management System</span></center>
       </a>
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex" style="padding-left:10px;">
-        <div class="image">
-          <img src="../../dist/img/default.png" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <span class="d-block" style="color:white">{{auth()->user()->name}}</span>
-        </div>
-      </div>
 
       <!-- Sidebar -->
       <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
 
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex" style="padding-left:10px;">
+          <div class="image">
+            <img src="../../dist/img/default.png" class="img-circle elevation-2" alt="User Image">
+          </div>
+          <div class="info">
+            <span class="d-block" style="color:white">{{auth()->user()->name}}</span>
+          </div>
+        </div>
+
         <!-- SidebarSearch Form -->
 
         <!-- Sidebar Menu -->
-        <nav class="mt-2" style="min-height:1000px;">
+        <nav class="mt-2" style="min-height:600px;">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
