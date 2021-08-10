@@ -40,7 +40,7 @@
 
 <form action="manage-checkout" method="POST" enctype="multipart/form-data">
     @csrf
-    <div class="card mx-auto" style="width:95%;">
+    <div class="card mx-auto" style="width:97%;">
         <div class="card-header">
             <h1 class="card-title" style="font-size:17px"><b>ID: </b>{{ $applicant_details->applicant_id }}&emsp;&emsp;<b>Name: </b>{{ $applicant_details->applicant_name }}&emsp;&emsp;<b>Email: </b>{{ $applicant_details->email }}&emsp;&emsp;</h1>
             <div class="card-tools noPrint">

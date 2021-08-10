@@ -56,7 +56,9 @@
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset" style="width:400px">
                 @foreach($new as $new)
-                <button type="submit" class="btn btn-block" style="text-align:left;" name="id[]" value="{{ $new->id }}"><b>ID:</b> {{$new->applicant_id}}&emsp;<br><b>Name:</b> {{ $new->applicant_name }}&emsp;<br><b>Email:</b> {{ $new->email }} </button>
+                <button type="submit" class="btn btn-block" style="text-align:left;" name="id[]" value="{{ $new->id }}">
+                    <b>ID:</b> {{$new->applicant_id}}&emsp;<br><b>Name:</b> {{ $new->applicant_name }}&emsp;<br><b>Email:</b> {{ $new->email }}<br><b>Purpose:</b> {{ $new->purpose }}<br><b>Return Date:</b> {{ $new->return_date }}
+                </button>
                 <input type="hidden" name="value" value="1">
                 <input type="hidden" name="value2" value="1">
                 @endforeach
@@ -71,7 +73,9 @@
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset" style="width:400px">
                 @foreach($checkedout as $checkedout)
-                <button type="submit" class="btn btn-block" style="text-align:left;" name="id[]" value="{{ $checkedout->id }}"><b>ID:</b> {{$checkedout->applicant_id}}&emsp;<br><b>Name:</b> {{ $checkedout->applicant_name }}&emsp;<br><b>Email:</b> {{ $checkedout->email }} </button>
+                <button type="submit" class="btn btn-block" style="text-align:left;" name="id[]" value="{{ $checkedout->id }}">
+                    <b>ID:</b> {{$checkedout->applicant_id}}&emsp;<br><b>Name:</b> {{ $checkedout->applicant_name }}&emsp;<br><b>Email:</b> {{ $checkedout->email }}<br><b>Purpose:</b> {{ $checkedout->purpose }}<br><b>Return Date:</b> {{ $checkedout->return_date }}
+                </button>
                 <input type="hidden" name="value" value="1">
                 @endforeach
             </div>
@@ -85,7 +89,9 @@
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset" style="width:400px">
                 @foreach($cancel as $cancel)
-                <button type="submit" class="btn btn-block" style="text-align:left;" name="id[]" value="{{ $cancel->id }}"><b>ID:</b> {{$cancel->applicant_id}}&emsp;<br><b>Name:</b> {{ $cancel->applicant_name }}&emsp;<br><b>Email:</b> {{ $cancel->email }} </button>
+                <button type="submit" class="btn btn-block" style="text-align:left;" name="id[]" value="{{ $cancel->id }}">
+                    <b>ID:</b> {{$cancel->applicant_id}}&emsp;<br><b>Name:</b> {{ $cancel->applicant_name }}&emsp;<br><b>Email:</b> {{ $cancel->email }}<br><b>Purpose:</b> {{ $cancel->purpose }}<br><b>Return Date:</b> {{ $cancel->return_date }}
+                </button>
                 <input type="hidden" name="value" value="0">
                 <input type="hidden" name="value2" value="1">
                 @endforeach
@@ -198,7 +204,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label class="control-label" for="date">Move to: </label>
-                            <select class="select2bs4" name="center_id" style="width:450px;" id="center_id" required>
+                            <select class="select2bs4" name="center_id" id="center_id" required>
                                 <option value="">-Select Center-</option>
                                 @foreach($centers as $center)
                                 <option value="{{$center->code}}" {{ $id->center->name->code  == $center->code ? 'disabled' : '' }}>[{{$center->code}}] {{$center->name}}</option>
