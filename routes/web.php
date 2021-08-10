@@ -27,6 +27,8 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::group(['middleware' => ['auth','admin']], function() {
+
+    /* tset */
     Route::get('create-file',[CreateFileController::class, 'create']);
     Route::post('create-file',[CreateFileController::class, 'store']);
 
