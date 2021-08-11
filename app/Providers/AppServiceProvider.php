@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use App\Models\Center;
-use View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,8 +21,4 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
-    {
-        View::share('centers', Center::all(['code','name']));
-    }
 }
