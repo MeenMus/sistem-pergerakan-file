@@ -30,7 +30,7 @@
                 </a>
                 <div id="collapseOne" class="collapse" data-parent="#accordion">
                     <div class="card-body">
-                        <img src="../../dist/img/manual/dashboard.png" style = "width:940px; height:650px; margin-left:55px;"alt="Dashboard">
+                        <img src="../../dist/img/manual/dashboard.png" style = "width:940px; height:650px; margin-left:55px;"alt="dashboard.png">
                     </div>
                 </div>
             </div>
@@ -44,7 +44,7 @@
                 </a>
                 <div id="collapseTwo" class="collapse" data-parent="#accordion">
                     <div class="card-body">
-                        <img src="../../dist/img/manual/createfile.png" style = "width:1000px; height:550px; margin-left:40px;"alt="Dashboard">
+                        <img src="../../dist/img/manual/createfile.png" style = "width:1000px; height:550px; margin-left:40px;"alt="createfile.png">
                     </div>
                 </div>
             </div>
@@ -58,7 +58,7 @@
                 </a>
                 <div id="collapseThree" class="collapse" data-parent="#accordion">
                     <div class="card-body">
-                        <img src="../../dist/img/manual/createcenter.png" style = "width:1000px; height:550px; margin-left:40px;"alt="Dashboard">
+                        <img src="../../dist/img/manual/createcenter.png" style = "width:1000px; height:550px; margin-left:40px;"alt="createcenter.png">
                     </div>
                 </div>
             </div>
@@ -72,7 +72,7 @@
                 </a>
                 <div id="collapseFour" class="collapse" data-parent="#accordion">
                     <div class="card-body">
-                        <img src="../../dist/img/manual/checkout.png" style = "width:1000px; height:800px; margin-left:40px;"alt="Dashboard">
+                        <img src="../../dist/img/manual/checkout.png" style = "width:1000px; height:800px; margin-left:40px;"alt="checkout.png">
                     </div>
                 </div>
             </div>
@@ -86,7 +86,7 @@
                 </a>
                 <div id="collapseFive" class="collapse" data-parent="#accordion">
                     <div class="card-body">
-                        <img src="../../dist/img/manual/checkin.png" style = "width:1000px; height:800px; margin-left:40px;"alt="Dashboard">
+                        <img src="../../dist/img/manual/checkin.png" style = "width:1000px; height:800px; margin-left:40px;"alt="checkin.png">
                     </div>
                 </div>
             </div>
@@ -100,7 +100,7 @@
                 </a>
                 <div id="collapseSix" class="collapse" data-parent="#accordion">
                     <div class="card-body">
-                        <img src="../../dist/img/manual/archive.png" style = "width:1000px; height:1300px; margin-left:40px;"alt="Dashboard">
+                        <img src="../../dist/img/manual/archive.png" style = "width:1000px; height:1300px; margin-left:40px;"alt="archive.png">
                     </div>
                 </div>
             </div>
@@ -114,7 +114,7 @@
                 </a>
                 <div id="collapseSeven" class="collapse" data-parent="#accordion">
                     <div class="card-body">
-                        <img src="../../dist/img/manual/unarchive.png" style = "width:1000px; height:800px; margin-left:40px;"alt="Dashboard">
+                        <img src="../../dist/img/manual/unarchive.png" style = "width:1000px; height:800px; margin-left:40px;"alt="unarchive.png">
                     </div>
                 </div>
             </div>
@@ -128,7 +128,7 @@
                 </a>
                 <div id="collapseEight" class="collapse" data-parent="#accordion">
                     <div class="card-body">
-                        <img src="../../dist/img/manual/move.png" style = "width:1000px; height:800px; margin-left:40px;"alt="Dashboard">
+                        <img src="../../dist/img/manual/move.png" style = "width:1000px; height:800px; margin-left:40px;"alt="move.png">
                     </div>
                 </div>
             </div>
@@ -142,7 +142,7 @@
                 </a>
                 <div id="collapseNine" class="collapse" data-parent="#accordion">
                     <div class="card-body">
-                        <img src="../../dist/img/manual/viewfile.png" style = "width:1000px; height:280px; margin-left:40px;"alt="Dashboard">
+                        <img src="../../dist/img/manual/viewfile.png" style = "width:1000px; height:280px; margin-left:40px;"alt="viewfile.png">
                     </div>
                 </div>
             </div>
@@ -156,7 +156,7 @@
                 </a>
                 <div id="collapseTen" class="collapse" data-parent="#accordion">
                     <div class="card-body">
-                        <img src="../../dist/img/manual/filepage.png" style = "width:1000px; height:500px; margin-left:40px;"alt="Dashboard">
+                        <img src="../../dist/img/manual/filepage.png" style = "width:1000px; height:500px; margin-left:40px;"alt="filepage.png">
                     </div>
                 </div>
             </div>
@@ -170,7 +170,7 @@
                 </a>
                 <div id="collapseEleven" class="collapse" data-parent="#accordion">
                     <div class="card-body">
-                        <img src="../../dist/img/manual/editfile.png" style = "width:1000px; height:800px; margin-left:40px;"alt="Dashboard">
+                        <img src="../../dist/img/manual/editfile.png" style = "width:1000px; height:800px; margin-left:40px;"alt="editfile.png">
                     </div>
                 </div>
             </div>
@@ -184,7 +184,7 @@
                 </a>
                 <div id="collapseTwelve" class="collapse" data-parent="#accordion">
                     <div class="card-body">
-                        <img src="../../dist/img/manual/viewarchives.png" style = "width:1000px; height:800px; margin-left:40px;"alt="Dashboard">
+                        <img src="../../dist/img/manual/viewarchives.png" style = "width:1000px; height:800px; margin-left:40px;"alt="viewarchives.png">
                     </div>
                 </div>
             </div>
@@ -198,7 +198,7 @@
                 </a>
                 <div id="collapseThirteen" class="collapse" data-parent="#accordion">
                     <div class="card-body">
-                        <img src="../../dist/img/manual/editarchive.png" style = "width:1000px; height:800px; margin-left:40px;"alt="Dashboard">
+                        <img src="../../dist/img/manual/editarchive.png" style = "width:1000px; height:800px; margin-left:40px;"alt="editarchive.png">
                     </div>
                 </div>
             </div>
@@ -212,7 +212,7 @@
                 </a>
                 <div id="collapseFourteen" class="collapse" data-parent="#accordion">
                     <div class="card-body">
-                        <img src="../../dist/img/manual/applog.png" style = "width:1000px; height:280px; margin-left:40px;"alt="Dashboard">
+                        <img src="../../dist/img/manual/applog.png" style = "width:1000px; height:280px; margin-left:40px;"alt="applog.png">
                     </div>
                 </div>
             </div>
@@ -226,7 +226,7 @@
                 </a>
                 <div id="collapseFifteen" class="collapse" data-parent="#accordion">
                     <div class="card-body">
-                        <img src="../../dist/img/manual/search.png" style = "width:1000px; height:550px; margin-left:40px;"alt="Dashboard">
+                        <img src="../../dist/img/manual/search.png" style = "width:1000px; height:550px; margin-left:40px;"alt="search.png">
                     </div>
                 </div>
             </div>
