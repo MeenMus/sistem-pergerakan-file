@@ -22,7 +22,9 @@ class SessionsController extends Controller
 
         ]);
 
-        if (auth()->attempt($attributes)) {
+        $remember = request('remember_me');
+
+        if (auth()->attempt($attributes, $remember )) {
 
             if (auth()->user()->role_id == 1) {
                 return redirect('/dashboard');
