@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class isAdminMiddleware
+class isSuperAdminMiddleware
 {
     /**
      * Handle an incoming request.
@@ -15,8 +15,8 @@ class isAdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (auth()->user()->role_id == 3) {
-            return redirect('/home/all-files');
+        if (auth()->user()->role_id != 1) {
+            return redirect('/');
         }
         
         return $next($request);

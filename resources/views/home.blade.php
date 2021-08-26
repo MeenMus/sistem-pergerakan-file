@@ -8,6 +8,12 @@
     }
 </style>
 
+<style>
+    button:hover {
+        background-color: #D1D0CE;
+    }
+</style>
+
 <div class="content-header" style="height:56px">
     <div class="row mb-2">
         <div class="col-sm-6">
@@ -56,6 +62,7 @@
                     <th data-field="return_date" data-sortable="true">Return Date</th>
                     <th data-field="status" data-sortable="true">Status</th>
                     <th data-field="updated_at" data-sortable="true">Date Time</th>
+                    <th>Cancel</th>
                 </tr>
             </thead>
             <tbody id="myTable">
@@ -69,6 +76,12 @@
                     <td>{{ $file->return_date }}</td>
                     <td>{{ $file->status }}</td>
                     <td>{{ $file->updated_at }}</td>
+                    <td>
+                        <form action="/cancelapp" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <button type="submit" class="btn btn-primary-outline" style="font-size:17px;" name="id" value="{{ $file->id }}" onclick="return confirm('Are you sure you want to cancel application?');" {{ $file->status  != "NEW" ? 'disabled="disabled"' : '' }}><i class="fas fa-minus-circle text-muted"></i></button>
+                        </form>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>

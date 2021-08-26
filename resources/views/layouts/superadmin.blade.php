@@ -20,6 +20,9 @@
   <link rel="stylesheet" href="../../plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
   <!-- Bootstrap Table -->
   <link href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css" rel="stylesheet">
+  
+  <!-- Bootstrap button toggle -->
+  <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
 
   <!-- DataTables -->
   <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
@@ -129,10 +132,26 @@
               </a>
             </li>
             <li class="nav-item">
+              <a href="/delete-file/all-files" class="nav-link {{ (request()->is('delete-file/*')) ? 'active' : 'nav-link' }}">
+                <i class="nav-icon fas fa-file-alt"></i>
+                <p>
+                  Delete Files
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
               <a href="/create-file" class="nav-link {{ (request()->is('create-file')) ? 'active' : 'nav-link' }}">
                 <i class="nav-icon fas fa-file"></i>
                 <p>
                   Create File
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="/centercontrol" class="nav-link {{ (request()->is('centercontrol')) ? 'active' : 'nav-link' }}">
+                <i class="nav-icon fas fa-building"></i>
+                <p>
+                  Center Control
                 </p>
               </a>
             </li>
@@ -230,6 +249,14 @@
               </a>
             </li>
             <li class="nav-item">
+              <a href="/usercontrol" class="nav-link {{ (request()->is('usercontrol','edit-user/*')) ? 'active' : 'nav-link' }}">
+                <i class="nav-icon fas fa-users-cog"></i>
+                <p>
+                  User Control
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
               <a href="/manual" class="nav-link {{ (request()->is('manual')) ? 'active' : 'nav-link' }}">
                 <i class="nav-icon fas fa-book-open"></i>
                 <p>
@@ -259,6 +286,8 @@
   <!-- Bootstrap 4 -->
   <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+
   <!-- overlayScrollbars -->
   <script src="../../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
   <!-- AdminLTE App -->
@@ -381,12 +410,90 @@
     @endif
 
     @if($message = Session::get('fail'))
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Please select a file!',
-      })
-      @endif
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Please select a file!',
+    })
+    @endif
+
+    @if($message = Session::get('usercreated'))
+    Swal.fire({
+      icon: 'success',
+      title: 'User Created!',
+      text: 'Succesfully created user',
+      confirmButtonColor: '#337DFF',
+    })
+    @endif
+
+    @if($message = Session::get('dupuser'))
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Staff ID or Email already exists!',
+    })
+    @endif
+
+    @if($message = Session::get('userdeleted'))
+    Swal.fire({
+      icon: 'success',
+      title: 'SUCCESS!',
+      text: 'Successfully deleted user!',
+      confirmButtonColor: '#337DFF',
+    })
+    @endif
+
+    @if($message = Session::get('useredited'))
+    Swal.fire({
+      icon: 'success',
+      title: 'SUCCESS!',
+      text: 'Successfully edited user!',
+      confirmButtonColor: '#337DFF',
+    })
+    @endif
+
+    @if($message = Session::get('errorcenter'))
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Please delete all files from the center OR move to another center before deleting',
+    })
+    @endif
+
+    @if($message = Session::get('centerdeleted'))
+    Swal.fire({
+      icon: 'success',
+      title: 'SUCCESS!',
+      text: 'Successfully deleted center!',
+      confirmButtonColor: '#337DFF',
+    })
+    @endif
+
+    @if($message = Session::get('centeredited'))
+    Swal.fire({
+      icon: 'success',
+      title: 'SUCCESS!',
+      text: 'Successfully edited center!',
+      confirmButtonColor: '#337DFF',
+    })
+    @endif
+
+    @if($message = Session::get('dupcenter'))
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Center code or name already exists!',
+    })
+    @endif
+
+    @if($message = Session::get('deletedfile'))
+    Swal.fire({
+      icon: 'success',
+      title: 'SUCCESS!',
+      text: 'Successfully deleted files!',
+      confirmButtonColor: '#337DFF',
+    })
+    @endif
 
     @if($message = Session::get('fileimported'))
     Swal.fire({
@@ -396,7 +503,6 @@
       confirmButtonColor: '#337DFF',
     })
     @endif
-
   </script>
 
   <script>
@@ -523,7 +629,7 @@
     });
   </script>
 
-<script type="text/javascript">
+  <script type="text/javascript">
     $(function() {
       $("#move_purpose").change(function() {
         if ($(this).val() == 1) {
@@ -554,6 +660,27 @@
         "pageLength": 5,
       }).buttons().container().appendTo('#table2_wrapper .col-md-6:eq(0)');
     });
+  </script>
+
+  <script type="text/javascript">
+    @if(count($errors) > 0)
+    $('#userModal').modal('show');
+    @endif
+  </script>
+
+  <script>
+    function visibility3() {
+      var x = document.getElementById('password');
+      if (x.type === 'password') {
+        x.type = "text";
+        $('#eyeShow').show();
+        $('#eyeSlash').hide();
+      } else {
+        x.type = "password";
+        $('#eyeShow').hide();
+        $('#eyeSlash').show();
+      }
+    }
   </script>
 
 </body>

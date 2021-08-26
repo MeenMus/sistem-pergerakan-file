@@ -1,6 +1,13 @@
-@extends('layouts.admin')
-@section('content')
+@php
+   if(auth()->user()->role_id == 1) {
+      $layoutDirectory = 'layouts.superadmin';
+   } else {
+      $layoutDirectory = 'layouts.admin';
+   }
+@endphp
 
+@extends($layoutDirectory)
+@section('content')
 <div class="content-header">
   <div class="container-fluid">
     <div class="row mb-2">
@@ -82,7 +89,7 @@
             <table class="table table-striped table-valign-middle table-head-fixed">
               <thead>
                 <tr>
-                  <th>Name</th>
+                  <th>Applicant ID</th>
                   <th>File</th>
                   <th>Center</th>
                   <th style="width:10px;">More</th>
@@ -91,7 +98,7 @@
               <tbody>
                 @foreach ($app_request as $applicant)
                 <tr>
-                  <td>{{ $applicant->applicant_name }}</td>
+                  <td>{{ $applicant->applicant_id }}</td>
                   <td><a href="/file-page/{{ $applicant->file->id }}"><b>{{ $applicant->file->file_number }}</b></a></td>
                   <td>[{{ $applicant->center->code}}] {{ $applicant->center->name->name}}</td>
                   <td style="text-align:center">
@@ -142,7 +149,5 @@
     </div>
   </div>
 </section>
-
-<span class = "navicon"></span>
 
 @endsection

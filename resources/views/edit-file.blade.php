@@ -1,6 +1,13 @@
-@extends('layouts.admin')
-@section('content')
+@php
+   if(auth()->user()->role_id == 1) {
+      $layoutDirectory = 'layouts.superadmin';
+   } else {
+      $layoutDirectory = 'layouts.admin';
+   }
+@endphp
 
+@extends($layoutDirectory)
+@section('content')
 <div class="content-header" style="height:56px">
   <div class="container-fluid">
     <div class="row mb-2">

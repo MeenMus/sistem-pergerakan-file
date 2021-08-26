@@ -1,4 +1,12 @@
-@extends('layouts.admin')
+@php
+   if(auth()->user()->role_id == 1) {
+      $layoutDirectory = 'layouts.superadmin';
+   } else {
+      $layoutDirectory = 'layouts.admin';
+   }
+@endphp
+
+@extends($layoutDirectory)
 @section('content')
 
 <style>
@@ -190,7 +198,7 @@
     <form action="/move-file/{{ $id->center->name->code}}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="button mr-1" style="float: left;">
-            <button type="button" class="btn" style="background-color: #B048B5; color:white;" data-toggle="modal" data-target="#moveModal"><b>Move File</b></button>
+            <button type="button" class="btn" style="background-color: #B048B5; color:white;" data-toggle="modal" data-target="#moveModal"><b>Move Center</b></button>
         </div>
         <div class="modal fade" id="moveModal" tabindex="-1" role="dialog" aria-labelledby="moveModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">

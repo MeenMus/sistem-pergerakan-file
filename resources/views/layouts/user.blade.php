@@ -32,9 +32,9 @@
   <div class="wrapper">
 
     <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
-      <div class="container-fluid" style="max-width:1168px">
+      <div class="container-fluid" style="max-width:1400px">
         <ul class="navbar-nav" style="font-size:17.5px">
-          <li class="nav-item">
+          <li class="nav-item" style = "margin-left:-15px">
             <a href="/home/all-files" class="nav-link">Home</a>
           </li>
           <li class="nav-item">
@@ -68,10 +68,8 @@
 
     <div class="content-wrapper">
       <div class="content">
-        <div class="container">
-          <div class="content-wrapper">
-            @yield('content')
-          </div>
+        <div class="content-wrapper">
+          @yield('content')
         </div>
       </div>
     </div>

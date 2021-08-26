@@ -7,6 +7,8 @@ use App\Models\File;
 use App\Models\Archive;
 use App\Models\ArchiveFile;
 use App\Models\UnarchiveFile;
+use App\Models\Application;
+use App\Models\ApplicationsHistory;
 
 
 class ArchiveController extends Controller
@@ -14,20 +16,36 @@ class ArchiveController extends Controller
     public function create($code)
     {
 
-        $files = File::where('file_number', 'LIKE', $code . '-%')->where('file_status', '!=', 3)->get();
-        $archives = Archive::get();
-        return view('archive-file', compact('files', 'archives'));
+        if ($code == 'all-files') {
+            $files = File::where('file_status', '!=', 3)->get();
+            $archives = Archive::get();
+            return view('view-file', compact('files', 'archives'));
+        } else {
+            $files = File::where('file_number', 'LIKE', $code . '-%')->where('file_status', '!=', 3)->get();
+            $archives = Archive::get();
+            return view('view-file', compact('files', 'archives'));
+        }
     }
 
-    public function archiveFiles($code)
+    public function archiveFiles()
     {
         $archive_number = request('archive_id');
         $ids = request('id');
+        $code = request('code');
 
         if (empty($ids)) {
             session()->flash('fail');
             return redirect()->back();
         }
+
+        if(Application::whereIn('file_id', $ids)->exists()){
+            foreach ($ids as $id) {
+
+                Application::whereIn('file_id', array($id))
+                    ->update(['status' => 'ARCHIVED']);
+            }
+        }
+
 
         if (empty($archive_number)) {
 
@@ -45,6 +63,7 @@ class ArchiveController extends Controller
                 $attributes = array(
                     ('archive_id') => Archive::latest()->pluck('id')->first(),
                     ('file_id') => $id,
+                    ('purpose') => request('purpose'),
                 );
 
                 File::whereIn('id', array($id))
@@ -74,6 +93,7 @@ class ArchiveController extends Controller
                 $attributes = array(
                     ('archive_id') => Archive::latest()->pluck('id')->first(),
                     ('file_id') => $id,
+                    ('purpose') => request('purpose'),
                 );
 
                 File::whereIn('id', array($id))
@@ -97,6 +117,7 @@ class ArchiveController extends Controller
                 $attributes = array(
                     ('archive_id') => $archive_id,
                     ('file_id') => $id,
+                    ('purpose') => request('purpose'),
                 );
 
                 File::whereIn('id', array($id))
@@ -116,12 +137,12 @@ class ArchiveController extends Controller
 
             $files = File::where('file_status', '=', 3)->pluck('id');
             $archivefile = ArchiveFile::with('fileid', 'archiveid')->whereIn('file_id', $files)->get();
-            return view('unarchive-file', compact('archivefile'));
+            return view('view-archive', compact('archivefile'));
         } else {
 
             $files = File::where('file_number', 'LIKE', $code . '-%')->where('file_status', '=', 3)->pluck('id');
             $archivefile = ArchiveFile::with('fileid', 'archiveid')->whereIn('file_id', $files)->get();
-            return view('unarchive-file', compact('archivefile'));
+            return view('view-archive', compact('archivefile'));
         }
     }
 
@@ -161,6 +182,15 @@ class ArchiveController extends Controller
         Archive::where('id', '=', $code)->update(['archive_number' => request('archive_number')]);
 
         session()->flash('editarchive');
+        return redirect()->back();
+
+    }
+
+    public function editcenter($code){
+
+        Archive::where('id', '=', $code)->update(['center_id' => request('center_id')]);
+
+        session()->flash('editcenter');
         return redirect()->back();
 
     }

@@ -90,9 +90,16 @@ class ApplicationController extends Controller
 
         if ($value != 1) {
             foreach ($ids as $id) {
+
+                $getID[] = Application::whereIn('id', array($id))->pluck('file_id');
+
                 Application::whereIn('id', array($id))
                     ->update(['status' => 'CANCELED']);
+
             }
+
+            File::whereIn('id', $getID)->update(['file_status' => 1]);
+
             if ($value2 == "1") {
                 session()->flash('cancel');
                 return redirect()->back();
@@ -207,5 +214,17 @@ class ApplicationController extends Controller
             $files = ApplicationsHistory::with('file')->whereIn('file_id', $id)->get();
             return view('applications-log', compact('files', 'centers'));
         }
+    }
+
+    public function cancelapp()
+    {
+        $id = request('id');
+        $fileid = Application::where('id','=',$id)->pluck('file_id');
+
+        Application::where('id','=',$id)->update(['status' => 'CANCELED']);
+        File::where('id','=',$fileid)->update(['file_status' => 1]);
+
+        return redirect()->back();
+
     }
 }

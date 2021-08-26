@@ -12,45 +12,13 @@ use App\Models\UnarchiveFile;
 use App\Models\ApplicationsHistory;
 use App\Models\Application;
 use App\Models\MovementFile;
+use App\Models\Movement;
+
 
 
 
 class FileController extends Controller
 {
-    public function viewfile($code)
-    {
-        if ($code == 'all-files') {
-            $files = File::get();
-            return view('view-file', compact('files'));
-        } else {
-            $files = File::where('file_number', 'LIKE', $code . '-%')->get();
-            return view('view-file', compact('files'));
-        }
-    }
-
-    public function viewarchive($code)
-    {
-
-        if ($code == 'all-files') {
-
-            $archives = ArchiveFile::with('archiveid')
-                ->select('archive_id', ArchiveFile::raw('count(*) as total'))
-                ->groupBy('archive_id')
-                ->get();
-
-            return view('view-archive', compact('archives'));
-
-        } else {
-
-            $archive_number = Archive::where('center_id', $code)->pluck('id')->toArray();
-            $archives = ArchiveFile::with('archiveid')
-                ->whereIn('archive_id', $archive_number)
-                ->select('archive_id', ArchiveFile::raw('count(*) as total'))
-                ->groupBy('archive_id')
-                ->get();
-            return view('view-archive', compact('archives'));
-        }
-    }
 
     public function viewarchivefile($code)
     {
@@ -74,24 +42,24 @@ class FileController extends Controller
         }
     }
 
-    public function search(){
+    public function search()
+    {
 
         $q = request('search');
 
-        $files = File::where('file_number', 'LIKE', '%'.$q.'%')
-        -> orWhere('existing_file_number', 'LIKE',  '%'.$q.'%')
-        -> orWhere('student_name', 'LIKE',  '%'.$q.'%')
-        -> orWhere('student_metric', 'LIKE', '%'.$q.'%')
-        -> orWhere('student_ic', 'LIKE', '%'.$q.'%') -> get();
+        $files = File::where('file_number', 'LIKE', '%' . $q . '%')
+            ->orWhere('existing_file_number', 'LIKE',  '%' . $q . '%')
+            ->orWhere('student_name', 'LIKE',  '%' . $q . '%')
+            ->orWhere('student_metric', 'LIKE', '%' . $q . '%')
+            ->orWhere('student_ic', 'LIKE', '%' . $q . '%')->get();
 
-        return view('search',compact('files'));
-
+        return view('search', compact('files'));
     }
 
     public function viewfilepage($id)
     {
 
-        $file_number = File::where('id','=', $id)->get();
+        $file_number = File::where('id', '=', $id)->get();
 
         $new = Application::whereIn('file_id', array($id))->where('status', '=', 'NEW')->get();
         $checkedout = Application::whereIn('file_id', array($id))->where('status', '=', 'CHECKED OUT')->get();
@@ -101,10 +69,46 @@ class FileController extends Controller
 
         $apphistory = ApplicationsHistory::whereIn('file_id', array($id))->get();
 
-        $movehistory = MovementFile::with('fileid')->where('file_id','=' , $id)->get();
+        $movehistory = MovementFile::with('fileid')->where('file_id', '=', $id)->get();
 
-        return view('file-page', compact('movehistory','apphistory', 'file_number', 'new', 'checkedout', 'cancel','archives'));
+        return view('file-page', compact('movehistory', 'apphistory', 'file_number', 'new', 'checkedout', 'cancel', 'archives'));
+    }
+
+    public function getfile($code)
+    {
+
+        if ($code == 'all-files') {
+            $files = File::get();
+            return view('delete-file', compact('files'));
+        } else {
+            $files = File::where('file_number', 'LIKE', $code . '-%')->get();
+            return view('delete-file', compact('files'));
+        }
     }
 
 
+
+    public function deletefile($code)
+    {
+        $ids = request('id');
+
+        if (empty($ids)) {
+            session()->flash('fail');
+            return redirect()->back();
+        }
+
+        foreach ($ids as $id) {
+
+            Application::where('file_id', '=', $id)->delete();
+            ArchiveFile::where('file_id', '=', $id)->delete();
+            CentersFile::where('id', '=', $id)->delete();
+            File::where('id', '=', $id)->delete();
+            MovementFile::where('file_id', '=', $id)->delete();
+            Movement::where('file_id', '=', $id)->delete();
+
+        }
+
+        session()->flash('deletedfile');
+        return redirect()->back();
+    }
 }

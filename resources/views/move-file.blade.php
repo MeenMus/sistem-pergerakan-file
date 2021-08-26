@@ -1,4 +1,12 @@
-@extends('layouts.admin')
+@php
+   if(auth()->user()->role_id == 1) {
+      $layoutDirectory = 'layouts.superadmin';
+   } else {
+      $layoutDirectory = 'layouts.admin';
+   }
+@endphp
+
+@extends($layoutDirectory)
 @section('content')
 
 <style>
@@ -68,7 +76,7 @@
                     @foreach ($files as $file)
                     <tr>
                         <td style="padding-left:35px; padding-top:16px"><input type="checkbox" name="id[]" value="{{ $file->id }}" style="height:20px; width:20px;"></td>
-                        <td style="font-weight:bold; font-size:18px"><a href="/file-page/{{ $file->id }}">{{ $file->file_number }}</a></td>
+                        <td>{{ $file->file_number }}</td>
                         <td>{{ $file->student_name }}</td>
                         <td>{{ $file->student_metric }}</td>
                         <td>{{ $file->student_ic }}</td>

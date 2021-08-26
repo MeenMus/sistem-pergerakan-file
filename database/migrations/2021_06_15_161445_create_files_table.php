@@ -16,11 +16,12 @@ class CreateFilesTable extends Migration
         Schema::create('files', function (Blueprint $table) {
             $table->id();
             $table->string('existing_file_number')->nullable();
-            $table->string('file_number');
+            $table->string('file_number')->nullable();
             $table->string('student_name');
             $table->string('student_metric');
             $table->string('student_ic');
             $table->integer('file_status');
+            $table->timestamps();
         });
     }
 

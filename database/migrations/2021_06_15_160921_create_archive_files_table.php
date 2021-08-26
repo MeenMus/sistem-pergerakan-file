@@ -17,6 +17,7 @@ class CreateArchiveFilesTable extends Migration
             $table->id();
             $table->bigInteger('archive_id');
             $table->bigInteger('file_id');
+            $table->string('purpose');
             $table->timestamps();
         });
     }

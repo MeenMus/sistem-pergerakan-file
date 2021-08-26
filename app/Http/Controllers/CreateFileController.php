@@ -7,6 +7,9 @@ use App\Models\File;
 use App\Models\FileStatus;
 use App\Models\Center;
 use App\Models\CentersFile;
+use App\Imports\FilesImport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Controllers\Controller;
 
 
 class CreateFileController extends Controller
@@ -51,6 +54,37 @@ class CreateFileController extends Controller
         return redirect("/create-file")->with('filenum', $filenum);
     }
 
+    public function import() 
+    {
+        Excel::import(new FilesImport, request()->file('student_files'));
+
+        $files = File::whereNull('file_number')->pluck('id');
+        $year = date("Y");
+        $code = request('code');
+        
+        foreach($files as $file){
+
+            $filenum = $code . "-" . $year . "-" . $file;
+
+            File::where('id' ,'=', $file)
+            ->update([
+                'file_number' =>  $filenum,
+            ]);
+            
+            $centerfile = array(
+                ('id') => ($file),
+                ('code') => ($code),
+            );
+    
+            CentersFile::create($centerfile);
+            
+        }
+
+        File::whereNull('existing_file_number')->update(['existing_file_number' =>  'NONE',]);
+
+        session()->flash('fileimported');
+        return redirect('/create-file');
+    }
 
     public function getfile($id){
 

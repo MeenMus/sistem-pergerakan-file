@@ -17,12 +17,12 @@ class UserRequestFileController extends Controller
 
         if ($code == 'all-files') {
 
-            $files = Application::with('file')->where('applicant_id', '=', auth()->user()->id)->get();
+            $files = Application::with('file')->where('applicant_id', '=', auth()->user()->staff_id)->get();
             return view('home', compact('files', 'centers'));
         } else {
 
             $id = File::where('file_number', 'LIKE', $code . '-%')->get('id');
-            $files = Application::with('file')->whereIn('file_id', $id)->where('applicant_id', '=', auth()->user()->id)->get();
+            $files = Application::with('file')->whereIn('file_id', $id)->where('applicant_id', '=', auth()->user()->staff_id)->get();
             return view('home', compact('files', 'centers'));
         }
     }
@@ -53,7 +53,7 @@ class UserRequestFileController extends Controller
 
         foreach ($ids as $id) {
             $attributes = array(
-                ('applicant_id') => auth()->user()->id,
+                ('applicant_id') => auth()->user()->staff_id,
                 ('applicant_name') => auth()->user()->name,
                 ('email') => auth()->user()->email,
                 ('file_id') => ($id),
@@ -63,9 +63,8 @@ class UserRequestFileController extends Controller
             );
             Application::create($attributes);
 
-            $attribute = array(
-                ('file_id') => ($id),
-            );
+            File::where('id','=', $id)->update(['file_status' => 4]);
+
         }
         session()->flash('success');
         return redirect('/request-file/all-files');

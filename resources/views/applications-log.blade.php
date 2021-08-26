@@ -1,4 +1,12 @@
-@extends('layouts.admin')
+@php
+if(auth()->user()->role_id == 1) {
+$layoutDirectory = 'layouts.superadmin';
+} else {
+$layoutDirectory = 'layouts.admin';
+}
+@endphp
+
+@extends($layoutDirectory)
 @section('content')
 
 <style>
@@ -28,16 +36,16 @@
     <div class="card-header">
         <h3 class="card-title">File Details</h3>
         <div class="card-tools">
-            <div class="input-group input-group-sm" style="padding-top:7px">
-                <input type="text" name="table_search" class="form-control float-right" id="myInput" onkeyup="myFunction()" placeholder="Search">
+            <div class="input-group input-group-sm" style="padding-top:7px; width:230px;">
+                <input type="text" name="table_search" class="form-control float-right" id="myInput" onkeyup="myFunction()" placeholder="Search by File/Name/Metric/IC">
                 <div class="input-group-append">
-                    <button type="submit" class="btn btn-default">
+                    <span class="btn btn-default">
                         <i class="fas fa-search"></i>
-                    </button>
+                    </span>
                 </div>
             </div>
         </div>
-        <div class="card-tools" style="position: relative; padding-right:170px; font-size:15px;">
+        <div class="card-tools" style="position: relative; padding-right:120px; font-size:15px;">
             <select class="select2bs4" name="code" style="width:450px;" id="dynamic_select">
                 <option value="/applications-log/all-files">-All Files-</option>
                 @foreach($centers as $center)
@@ -55,6 +63,7 @@
                     <th data-field="email" data-sortable="true">Applicant Email</th>
                     <th data-field="file_number" data-sortable="true">File Number</th>
                     <th data-field="status" data-sortable="true">Status</th>
+                    <th data-field="purpose" data-sortable="true">Purpse</th>
                     <th data-field="created_at" data-sortable="true">Date Time</th>
                 </tr>
             </thead>
@@ -66,6 +75,7 @@
                     <td>{{ $file->email }}</td>
                     <td style="font-weight:bold; font-size:18px"><a href="/file-page/{{ $file->file->id }}">{{ $file->file->file_number }}</a></td>
                     <td>{{ $file->status }}</td>
+                    <td>{{ $file->purpose }}</td>
                     <td>{{ $file->created_at }}</td>
                 </tr>
                 @endforeach

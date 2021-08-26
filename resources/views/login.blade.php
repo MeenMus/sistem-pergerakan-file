@@ -16,6 +16,21 @@
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
 </head>
 
+<script>
+  function visibility3() {
+    var x = document.getElementById('password');
+    if (x.type === 'password') {
+      x.type = "text";
+      $('#eyeShow').show();
+      $('#eyeSlash').hide();
+    } else {
+      x.type = "password";
+      $('#eyeShow').hide();
+      $('#eyeSlash').show();
+    }
+  }
+</script>
+
 <body class="hold-transition login-page">
   <div class="login-box" style="padding-bottom:100px;">
     <!-- /.login-logo -->
@@ -25,7 +40,11 @@
       </div>
       <div class="card-body">
         <p class="login-box-msg">Sign in to start your session</p>
-
+        <div>
+          @if(Session::has('success'))
+          <center style="font-size:14px; color:green; font-weight:bold; padding-bottom:10px;">{{Session::get('success')}}</center>
+          @endif
+        </div>
         <form action="/" method="POST" enctype="multipart/form-data">
           @csrf
           <div class="input-group mb-3">
@@ -41,16 +60,17 @@
           @endif
           <div class="input-group mb-3">
             <input type="password" class="form-control" placeholder="Password" id="password" name="password" required>
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-lock"></span>
-              </div>
-            </div>
+            <span class="input-group-btn" id="eyeSlash">
+              <button class="btn btn-default reveal" onclick="visibility3()" type="button"><i style = "font-size:14px" class="fa fa-eye-slash" aria-hidden="true"></i></button>
+            </span>
+            <span class="input-group-btn" id="eyeShow" style="display: none;">
+              <button class="btn btn-default reveal" onclick="visibility3()" type="button"><i style = "font-size:14px"class="fa fa-eye" aria-hidden="true"></i></button>
+            </span>
           </div>
           <div class="row">
             <div class="col-8">
               <div class="icheck-primary">
-                <input type="checkbox" name= "remember_me" id="remember_me">
+                <input type="checkbox" name="remember_me" id="remember_me">
                 <label for="remember_me">
                   Remember Me
                 </label>
@@ -62,6 +82,9 @@
             </div>
             <!-- /.col -->
           </div>
+          <p class="mb-0" style="margin-top:20px;">
+            <center><a href="/register">Don't have an account? Register here</a></center>
+          </p>
         </form>
       </div>
     </div>
