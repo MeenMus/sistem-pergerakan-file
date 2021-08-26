@@ -32,8 +32,8 @@
             <div class="card-header">
                 <h3 class="card-title" style="font-size:22px">File Details</h3>
                 <div class="card-tools">
-                    <div class="input-group input-group-sm" style="padding-top:7px">
-                        <input type="text" name="table_search" class="form-control float-right" id="myInput" onkeyup="myFunction()" placeholder="Search">
+                    <div class="input-group input-group-sm" style="padding-top:7px; width:230px;">
+                        <input type="text" name="table_search" class="form-control float-right" id="myInput" onkeyup="myFunction()" placeholder="Search by File/Name/Metric/IC">
                         <div class="input-group-append">
                             <span class="btn btn-default">
                                 <i class="fas fa-search"></i>
@@ -50,7 +50,7 @@
                 </div>
             </div>
             <div class="card-body table-responsive p-0" style="max-height: 370px;">
-                <table class="table table-head-fixed text-nowrap" id = "requestTable" style="width: 100%;">
+                <table class="table table-head-fixed text-nowrap" id="requestTable" style="width: 100%;">
                     <thead>
                         <tr>
                             <th>Select</th>
